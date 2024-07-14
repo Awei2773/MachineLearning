@@ -7,6 +7,7 @@ from .normalize import normalize
 def generate_polynomials(dataset, polynomial_degree, normalize_data=False):
     """变换方法：
     x1, x2, x1^2, x2^2, x1*x2, x1*x2^2, etc.
+    上述多项式可以理解为从两个变量，生成的各种幂次和组合。这些多项式特征可以用于机器学习模型，以捕捉输入变量之间的非线性关系
     """
 
     features_split = np.array_split(dataset, 2, axis=1)
@@ -33,8 +34,13 @@ def generate_polynomials(dataset, polynomial_degree, normalize_data=False):
 
     polynomials = np.empty((num_examples_1, 0))
 
+    # 1 ~ polynomial_degree
+    # (1,0),(1,1),(2,0),(2,1),(2,2),(3,0),(3,1),(3,2),(3,3)
     for i in range(1, polynomial_degree + 1):
+        # 0 ~ i
         for j in range(i + 1):
+            # **是^的效果，表示幂次
+            # x1, x2, x1^2, x1*x2, x2^2, x1^3, x1^2*x2, x1*x2^2, x2^3
             polynomial_feature = (dataset_1 ** (i - j)) * (dataset_2 ** j)
             polynomials = np.concatenate((polynomials, polynomial_feature), axis=1)
 

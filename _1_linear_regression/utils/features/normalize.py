@@ -4,6 +4,13 @@ import numpy as np
 
 
 def normalize(features):
+    """
+    Normalize the features using the mean and standard deviation, calculate zscore
+    :param features: numpy array is data for analyze
+    :return: features_normalized: numpy array zscored ((x - mean) / std)features
+    :return: feature_mean: numpy array
+    :return: features_deviation: numpy array
+    """
 
     features_normalized = np.copy(features).astype(float)
 
